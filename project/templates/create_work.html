@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block title %}Create My Work{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+{% block page_content %}
+<div class="hero-head">
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="../">
+                    <img src="https://mahidol.ac.th/temp/2019/06/logo-MU_black-white.png" alt="Logo">
+                </a>
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-end">
+                    <div class="tabs is-right">
+                        <ul>
+                            <li class="is-active"><a href="">Home</a></li>
+                            <li><a href="">Features</a></li>
+                            <li><a href="">Help</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<section class="section">
+    <div class="box">
+        <div class="columns">
+<!--                <div class="column has-text-centered">-->
+<!--                    <h1 class="title">ภารกิจที่ได้รับมอบหมาย</h1>-->
+<!--                </div>-->
+        </div>
+        {% include "messages.html"%}
+        <div class="columns">
+            <div class="column is-one-third is-offset-4">
+                <form method="post">
+                    {{ form.hidden_tag()}}
+                    <div class="field">
+                        <label class="label">{{ form.position.label }}</label>
+                        <select class="StaffPosition" name="position" multiple="multiple" style="width:100%">
+                            <option value={{form.position}} ></option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label class="label">{{ form.job_desc.label }}</label>
+                        <div class="control">
+                            {{ form.job_desc(class="input", readonly=True) }}
+                        </div>
+                    </div>
+                    <a class="button is-link" id="button">กรอกภาระงาน</a>
+
+                    <div class="modal" id="page-modal">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
+                            <header class="modal-card-head">
+                                <p class="modal-card-title">ภารกิจที่ได้รับมอบหมาย</p>
+                                <button class="modal-close is-large" aria-label="close"></button>
+                            </header>
+                            <section class="modal-card-body">
+                                <!-- Content ... -->
+                                <div class="field">
+                                    <label class="label">{{ form.percentage.label }}</label>
+                                    <div class="control">
+                                        {{ form.percentage(class="input") }}
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">{{ form.work.label }}</label>
+                                    <div class="control">
+                                        {{ form.work(class="input") }}
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">{{ form.details.label }}</label>
+                                    <div class="control">
+                                        {{ form.details(class="textarea") }}
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">{{ form.comment.label }}</label>
+                                    <div class="control">
+                                        {{ form.comment(class="input") }}
+                                    </div>
+                                </div>
+                                 {% for work in works %}
+                                <h4>{{ work.work}}</h4>
+                                <h4>{{ work.details}}</h4>
+                                {% endfor %}
+                            </section>
+                            <footer class="modal-card-foot">
+                                <button class="button is-success" type="submit" value="submit">Submit</button>
+                                <a href="{{url_for('create_project')}}" class="button is-danger">Cancel</a>
+                            </footer>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock page_content %}
+{% block scripts %}
+    {{ super() }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function() {
+        $('.StaffPosition').select2({
+            multiple:true,
+            placeholder: 'Select an position'
+        });
+    });
+</script>
+<script>
+    var button = document.getElementById('button');
+    var modal = document.getElementById('page-modal');
+    var close = document.getElementsByClassName('modal-close')[0];
+
+    button.onclick = function(){
+        modal.style.display = 'block';
+    }
+    close.onclick = function(){
+        modal.style.display = 'none';
+    }
+
+    window.onclick = function (event){
+        // console.log(event);
+        if (event.target.className == 'modal-background'){
+            modal.style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}
