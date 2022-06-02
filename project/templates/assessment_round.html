@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}e-PA: Round{% endblock %}
+
+{% block content %}
+
+<section class="section">
+<div class="container">
+    <div class="columns">
+        <div class="column is-half is-offset-one-quarter has-text-centered">
+            {% include 'messages.html' %}
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+            <nav class="panel is-success">
+                <p class="panel-heading">รอบประเมิน</p>
+                <div class="box">
+                    <a class="panel-block"
+                       href="{{ url_for('main.report_info') }}">
+                        <span class="panel-icon">
+                            <i class="fas fa-history"></i>
+                        </span>
+                        <span class="is-size-5">
+                            ปี 2565
+                        </span>
+                    </a>
+                    <a class="panel-block"
+                       href="">
+                        <span class="panel-icon">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span class="is-size-5">
+                            เพิ่มรายการ
+                        </span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}

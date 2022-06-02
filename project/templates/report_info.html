@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}e-PA: Info{% endblock %}
+{% block head %}
+{{ super() }}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <!-- Bulma Version 0.9.0-->
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/admin.css">
+{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <h1 class="title has-text-centered">การประเมินผลการปฏิบัติงานและการติดตาม</h1>
+                <h1 class="subtitle has-text-centered"> Performance Agreement</h1>
+                <div class="buttons is-centered">
+                    <a href="{{ url_for('main.add_staff') }}" class="button is-success">
+                        <span>Add Staff</span>
+                    </a>
+                    <a href=""
+                       class="button is-info">
+                        <span>Add Committee</span>
+                    </a>
+                </div>
+                 <nav class="breadcrumb" aria-label="breadcrumbs">
+                    <ul>
+                        <li><a href="../">รายการรอประเมิน</a></li>
+                        <li><a href="../">ผลการประเมิน</a></li>
+                        <li><a href="../">แบบประเมิน</a></li>
+                        <li class="is-active"><a href="#" aria-current="page">ประเมินประจำปี</a></li>
+                    </ul>
+                </nav>
+                <div class="columns">
+                    <div class="container">
+                    <table class="table is-striped" id="e-PATable">
+                        <thead>
+                        <th>ชื่อพนักงาน</th>
+                        <th>ตำแหน่ง</th>
+                        <th>สังกัด</th>
+                        <th>สถานะ</th>
+                        <th>วันปิดประเมิน</th>
+                        <th>ประเมิน</th>
+                        </thead>
+                    {% for staff in staff_info %}
+                        <tr>
+                            <td>
+                            {{ staff.fullname }}
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                            {{ staff.org.name  }}
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                    {% endfor %}
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script>
+        $(document).ready(function () {
+            $('#e-PATable').DataTable( {
+            "iDisplayLength": 10
+            });
+        });
+    </script>
+{% endblock %}

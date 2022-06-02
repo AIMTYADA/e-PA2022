@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms_alchemy import model_form_factory, QuerySelectField
 
 from . import db
-from .models import PerformanceAgreement, StaffPosition
+from .models import PerformanceAgreement, StaffPosition, StaffPersonalInfo
 
 BaseModelForm = model_form_factory(FlaskForm)
 
@@ -13,6 +13,17 @@ class ModelForm(BaseModelForm):
     @classmethod
     def get_session(self):
         return db.session
+
+
+class CreateStaffPersonalForm(ModelForm):
+    class Meta:
+        model = StaffPersonalInfo
+
+    position = QuerySelectField(query_factory=lambda: StaffPosition.query.all(),
+                                 get_label='fullname_th',
+                                 label=u'ตำแหน่ง')
+
+
 
 
 # Create a Form Class

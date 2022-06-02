@@ -56,12 +56,15 @@ class StaffPersonalInfo(db.Model):
                               db.ForeignKey('staff_employments.id'))
     employment = db.relationship('StaffEmployment',
                                  backref=db.backref('staff'))
+    position_id = db.Column('position_id',
+                              db.ForeignKey('staff_position.id'))
+    position = db.relationship('StaffPosition',
+                                 backref=db.backref('position'))
+    # def __repr__(self):
+    #     return '<FullName %r>' % self.fullname
 
-    def __repr__(self):
-        return '<FullName %r>' % self.fullname
-
-    # def __str__(self):
-    #     return self.fullname
+    def __str__(self):
+        return self.fullname
 
     @property
     def fullname(self):
@@ -105,12 +108,13 @@ class PerformanceAgreement(db.Model):
     details = db.Column('details', db.Text(), info={'label': u'รายละเอียด'})
     personal_id = db.Column('personal_id', db.ForeignKey('staff_personal_info.id'))
     personal_info = db.relationship("StaffPersonalInfo")
-    appraisal_cycle = db.Column('appraisal_cycle', db.String(), info={'label': u'รอบประเมิน'})
+    evaluation_round = db.Column('appraisal_cycle', db.String(), info={'label': u'รอบประเมิน'})
     percentage = db.Column('percentage', db.Float(), info={'label': u'ร้อยละน้ำหนัก'})
     start_date = db.Column('start_date', db.Date(), info={'label': u'วันที่เริ่มประเมิน'})
     end_date = db.Column('end_date', db.Date(), info={'label': u'ประเมินถึงวันที่'})
     comment = db.Column('comment', db.Text(), info={'label': u'หมายเหตุ'})
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
+    evaluation_year = db.Column(db.Date(), info={'label': u'รอบการประเมิน พ.ศ.'})
 
     # def __str__(self):
     #     return u'{}'.format(self.work)

@@ -6,8 +6,8 @@ from flask_login import login_required, current_user
 
 
 from project import db
-from project.forms import CreateWorkForm
-from project.models import PerformanceAgreement
+from project.forms import CreateWorkForm, CreateStaffPersonalForm
+from project.models import PerformanceAgreement, StaffPersonalInfo
 
 main = Blueprint('main', __name__)
 bangkok = timezone('Asia/Bangkok')
@@ -22,6 +22,36 @@ def index():
 @login_required
 def profile():
     return render_template('profile.html', name=current_user.name)
+
+
+@main.route('/performance_agreement/year')
+@login_required
+def show_year():
+    return render_template('assessment_round.html')
+
+
+@main.route('/performance_agreement/report')
+def report_info():
+    staff_info = StaffPersonalInfo.query.all()
+    return render_template('report_info.html', staff_info=staff_info)
+
+
+@main.route('/performance_agreement/personal/add', methods=['GET', 'POST'])
+@login_required
+def add_staff():
+    form = CreateStaffPersonalForm()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            staff = StaffPersonalInfo()
+            form.populate_obj(staff)
+            db.session.add(staff)
+            db.session.commit()
+            flash(u'บันทึกข้อมูลเรียบร้อย', 'success')
+            # return redirect(url_for('main.show_personal_info'))
+        else:
+            print(form.errors)
+            flash(u'ข้อมูลไม่ถูกต้อง กรุณาตรวจสอบ', 'danger')
+    return render_template('add_staff.html', form=form)
 
 
 @main.route('/project/create', methods=['POST', 'GET'])
@@ -44,4 +74,5 @@ def create_work():
     else:
         works = PerformanceAgreement.query.order_by(PerformanceAgreement.updated_at)
         return render_template('create_work.html', form=form, works=works)
+
 

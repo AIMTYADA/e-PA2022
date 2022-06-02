@@ -4,18 +4,17 @@
 <h1 class="title">
   Welcome, K. {{ name }}:)
 </h1>
-<div class="columns is-3">
+<div class="columns">
     <div class="column is-4 ">
         <div class="card is-shady">
             <div class="card-image">
                 <figure class="image is-128x128">
                     <img src="https://mahidol.ac.th/temp/2019/06/Logo16.jpg" alt="Placeholder image" class="modal-button" data-target="modal-image2">
                 </figure>
-                <h6>ตั้งแต่วันที่ 1 ก.ค.ถึง 30 มิ.ย.ของปีถัดไป</h6>
             </div>
             <div class="card-content"><br>
                 <div class="content">
-                    <a href="{{ url_for('main.create_work') }}" class="button is-link modal-button">พนักงานมหาวิทยาลัย</a>
+                    <a href="{{ url_for('main.create_work') }}" class="button is-link modal-button">Staff</a>
                 </div>
             </div><br>
         </div>
@@ -26,26 +25,10 @@
                 <figure class="image is-128x128">
                     <img src="https://mahidol.ac.th/temp/2019/06/Logo16.jpg" alt="Placeholder image" class="modal-button" data-target="modal-image2">
                 </figure>
-                <h6>ครั้งที่ 1 ตั้งแต่วันที่ 1 ก.ค.ถึง 31 ธ.ค.<br>ครั้งที่ 2 ตั้งแต่วันที่ 1 ม.ค.ถึง 30 มิ.ย. </h6>
             </div>
             <div class="card-content">
                 <div class="content">
-                    <a href="{{ url_for('main.create_work') }}" class="button is-link modal-button">ข้าราชการ/ลูกจ้าง</a>
-                </div>
-            </div><br>
-        </div>
-    </div>
-    <div class="column is-4">
-        <div class="card is-shady">
-            <div class="card-image">
-                <figure class="image is-128x128">
-                    <img src="https://mahidol.ac.th/temp/2019/06/Logo16.jpg" alt="Placeholder image" class="modal-button" data-target="modal-image2">
-                </figure>
-                <h6>ตั้งแต่วันที่ 1 ต.ค.ถึง 30 ก.ย.ของปีถัดไป</h6>
-            </div>
-            <div class="card-content"><br>
-                <div class="content">
-                    <a href="{{ url_for('main.create_work') }}" class="button is-link modal-button">รองอธิการบดี ผู้ช่วยอธิการบดี หัวหน้าส่วนงาน<br>และหัวหน้างานภายใน สำนักงานอธิการบดี</a>
+                    <a href="{{ url_for('main.show_year') }}" class="button is-link modal-button">HR</a>
                 </div>
             </div><br>
         </div>
